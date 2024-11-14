@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Assessment</title>
+    <link rel="stylesheet" th:href="@{/css/assessment.css}"/>
+</head>
+<body>
+<div class="container">
+    <h2 th:text="${assessment.name}">Nome do Assessment</h2>
+
+    <ul class="assessment-details">
+        <li><strong>Descrição:</strong> <span th:text="${assessment.description}">Descrição do Assessment</span></li>
+        <li><strong>Cliente:</strong> <span th:text="${assessment.client}">Cliente do Assessment</span></li>
+        <li><strong>Data de Início:</strong> <span th:text="${#temporals.format(assessment.startDate, 'dd/MM/yyyy')}">01/01/2023</span></li>
+        <li><strong>Data de Término:</strong> <span th:text="${#temporals.format(assessment.endDate, 'dd/MM/yyyy')}">31/12/2023</span></li>
+        <li><strong>Tipo de Teste:</strong> <span th:text="${assessment.demand.getDescription()}">Tipo de Teste</span></li>
+        <li><strong>Ambiente:</strong> <span th:text="${assessment.environment.getDescription()}">Ambiente</span></li>
+        <li><strong>URL:</strong> <a th:href="${assessment.URL}" th:text="${assessment.URL}">Link para o Assessment</a></li>
+    </ul>
+
+    <h3>Vulnerabilidades</h3>
+    <ul class="vuln-list">
+        <li th:each="vuln : ${assessment.vulns}">
+            <a th:href="@{/vuln/{id}(id=${vuln.id})}" th:text="${vuln.name}">Nome da Vulnerabilidade</a>
+        </li>
+    </ul>
+
+    <div class="actions">
+        <a th:href="@{/home}" class="button blue">Voltar para Home</a>
+        <a th:href="@{/vuln/create/{assessmentId}(assessmentId=${assessment.id})}" class="button">Adicionar Vulnerabilidade</a>
+        <a th:href="@{/export/{id}(id=${assessment.id})}" class="button">Exportar Relatório</a>
+        <a th:href="@{/assessment/remove/{id}(id=${assessment.id})}" class="button danger">Remover Assessment</a>
+    </div>
+</div>
+</body>
+</html>

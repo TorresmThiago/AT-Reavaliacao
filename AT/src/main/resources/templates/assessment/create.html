@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Novo Assessment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .assessment-form .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .assessment-form label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .assessment-form input[type="text"],
+        .assessment-form input[type="date"],
+        .assessment-form input[type="url"],
+        .assessment-form select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .assessment-form input[type="text"]:focus,
+        .assessment-form input[type="date"]:focus,
+        .assessment-form input[type="url"]:focus,
+        .assessment-form select:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .button + .button {
+            background-color: #4CAF50;
+        }
+
+        .button + .button:hover {
+            background-color: #45a049;
+        }
+
+        .button.blue {
+            background-color: #007BFF;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Registrar Novo Assessment</h2>
+
+    <form method="post" class="assessment-form">
+
+        <div class="form-group">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" placeholder="Digite o nome do assessment" required />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descrição:</label>
+            <input type="text" id="description" name="description" placeholder="Descreva seu assessment" required />
+        </div>
+
+        <div class="form-group">
+            <label for="client">Cliente:</label>
+            <input type="text" id="client" name="client" placeholder="Para quem será a análise" required />
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Data de Início:</label>
+            <input type="date" id="startDate" name="startDate" required />
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">Data de Término:</label>
+            <input type="date" id="endDate" name="endDate" required />
+        </div>
+
+        <div class="form-group">
+            <label for="demand">Tipo de Teste:</label>
+            <select id="demand" name="demand" required>
+                <option th:each="demand : ${demands}" th:value="${demand}" th:text="${demand.getDescription()}">Tipo de Teste</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="environment">Ambiente:</label>
+            <select id="environment" name="environment" required>
+                <option th:each="environment : ${environments}" th:value="${environment}" th:text="${environment.getDescription()}">Ambiente</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="URL">URL:</label>
+            <input type="url" id="URL" name="URL" placeholder="Informe a URL do assessment" />
+        </div>
+
+        <div class="form-actions">
+            <a th:href="@{/home}" class="button blue">Cancelar</a>
+            <button type="submit" class="button">Registrar</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes da Vulnerabilidade</title>
+    <link rel="stylesheet" th:href="@{/css/assessment.css}"/>
+</head>
+<body>
+<div class="container">
+    <h2>Detalhes da Vulnerabilidade</h2>
+
+    <ul class="assessment-details">
+        <li><strong>Nome:</strong> <span th:text="${vuln.name}">Nome da Vulnerabilidade</span></li>
+        <li><strong>Descrição:</strong> <span th:text="${vuln.description}">Descrição da Vulnerabilidade</span></li>
+        <li><strong>Recomendação:</strong> <span th:text="${vuln.remediation}">Recomendação de Mitigação</span></li>
+        <li><strong>Classificação OWASP TOP 10:</strong> <span th:text="${vuln.owaspTop10.getDescription()}">Classificação OWASP</span></li>
+        <li><strong>Pontuação CVSS:</strong> <span th:text="${vuln.scoreCVSS}">0.0</span></li>
+        <li><strong>CWE Relacionada:</strong> <span th:text="${vuln.CWE}">123</span></li>
+        <li><strong>Item Afetado:</strong> <a th:href="${vuln.affectedItem}" th:text="${vuln.affectedItem}">Link para o Item Afetado</a></li>
+        <li><strong>Referência:</strong> <a th:href="${vuln.reference}" th:text="${vuln.reference}">Link de Referência</a></li>
+    </ul>
+
+    <div class="actions">
+        <a th:href="@{/assessment/{id}(id=${vuln.assessment.id})}" class="button">Voltar para o Assessment</a>
+        <a th:href="@{/vuln/remove/{id}(id=${vuln.id})}" class="button danger">Remover Vulnerabilidade</a>
+    </div>
+</div>
+</body>
+</html>

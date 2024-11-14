@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>Relatório de Assessment</title>
+    </head>
+    <style>
+        body {
+            width: 794px;
+            height: 1123px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            border: 1px solid #000;
+            position: relative;
+        }
+
+        ul {
+            padding-left: 120px;
+        }
+
+        li {
+            font-size: 20px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .justify {
+            text-align: justify;
+        }
+
+        .logo {
+            width: 200px;
+            height: 200px;
+        }
+
+        .cover-title {
+            font-size: 35px;
+            padding-top: 75px;
+        }
+
+        .cover-subtitle {
+            font-size: 20px;
+        }
+
+        .cover-project-name {
+            font-size: 30px;
+            padding-top: 100px;
+        }
+
+        .cover-project-objective {
+            font-size: 20px;
+        }
+
+        .date {
+            padding-top: 135px;
+            font-size: 20px;
+        }
+
+        .summary-title {
+            font-size: 40px;
+            padding: 40px 0 20px 50px;
+        }
+
+        .summary-text {
+            font-size: 20px;
+            padding: 0 50px
+        }
+
+        .filler {
+            height: 250px;
+        }
+
+        .vulnList-title {
+            font-size: 40px;
+            padding: 40px 0 0 50px;
+        }
+
+        .vuln-title {
+            font-size: 30px;
+            padding: 0 50px
+        }
+
+        .vuln-classification {
+            font-size: 25px;
+            padding: 0 50px;
+            margin-bottom: 5px;
+        }
+
+        .vuln-text {
+            font-size: 20px;
+            padding: 0 50px;
+            margin-top: 0;
+        }
+
+        table {
+            width: 86%;
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        td {
+            font-size: 20px;
+            width: 70%;
+            border: 1px solid #dddddd;
+            padding: 10px;
+        }
+
+        th {
+            font-size: 20px;
+            width: 30%;
+            border: 1px solid #dddddd;
+            padding: 10px;
+        }
+    </style>
+
+    <body>
+        <!--Capa-->
+        <p class="center" style="padding-top: 150px;"><img class="logo" th:src="${logoPath}" alt="logo"></p>
+        <p class="center cover-title"><b>Teste de invasão</b></p>
+        <p class="center cover-subtitle">Relatório do Projeto</p>
+        <p class="center cover-project-name" th:text="${assessment.name}">Nome do Assessment</p>
+        <p class="center cover-project-objective">Projeto de Segurança da Informação</p>
+        <p class="center date" th:text="${date}">DATA DE EXPORTAÇÃO</p>
+
+        <!--Descrição do projeto-->
+        <p class="summary-title justify"> Sumário executivo</p>
+        <p class="summary-text justify">Este relatório apresenta o resultado final da avaliação de segurança da aplicação
+            [[${assessment.name}]], apontando
+            as vulnerabilidades encontradas entre os dias [[${#temporals.format(assessment.startDate, 'dd/MM/yyyy')}]] e [[${#temporals.format(assessment.endDate, 'dd/MM/yyyy')}]] e recomendando
+            algumas ações a serem desenvolvidas para aumentar o nível de segurança da aplicação.</p>
+        <p class="summary-text justify">O processo de avaliação foi composto por testes automatizados e manuais em todos os
+            endereços fornecidos pela
+            organização, além dos encontrados mediante consumo da aplicação WEB.</p>
+        <p class="summary-text justify">O teste de invasão, na modalidade [[${assessment.getDemand().getDescription()}]], foi realizado no ambiente de [[${assessment.getEnvironment().getDescription()}]]
+            da
+            aplicação Web
+            disponibilizada na seguinte URL:
+        </p>
+        <ul>
+            <li th:text="${assessment.URL}">URL</li>
+        </ul>
+        <p class="summary-text justify">Ainda assim, entendemos que não existe segurança 100% e que outros problemas
+            correlatos
+            podem existir. Cabe
+            ressaltar também que, em geral, a apresentação de uma evidência não restringe o problema apenas ao item afetado
+            em questão, podendo a mesma existir em outras partes da aplicação/infraestrutura. Dessa forma, sugerimos que
+            cada vulnerabilidade apresentada seja validada em toda a solução, e não apenas no item afetado indicado.</p>
+        <p class="summary-text justify">A seguir, apresentamos lista com as vulnerabilidades encontradas</p>
+        <ul class="filler">
+            <li th:each="vuln : ${assessment.vulns}">
+                [[${vuln.name}]]
+            </li>
+        </ul>
+
+        <!--Lista de vulnerabilidades-->
+        <p class="vulnList-title justify">Vulnerabilidades</p>
+        <div th:each="vuln : ${assessment.vulns}">
+            <p class="vuln-title">[[${vuln.name}]]</p>
+            <p class="center">
+            <table>
+                <tr>
+                    <th>CVSS</th>
+                    <td>[[${vuln.scoreCVSS}]]</td>
+                </tr>
+                <tr>
+                    <th>CWE</th>
+                    <td>[[${vuln.scoreCVSS}]]</td>
+                </tr>
+                <tr>
+                    <th>OWASP Top 10</th>
+                    <td>[[${vuln.getOwaspTop10().getDescription()}]]</td>
+                </tr>
+                <tr>
+                    <th>Item Afetado</th>
+                    <td>[[${vuln.affectedItem}]]</td>
+                </tr>
+            </table>
+            </p>
+
+            <p class="vuln-classification">Descrição</p>
+            <p class="vuln-text justify">[[${vuln.description}]]</p>
+
+            <p class="vuln-classification">Recomendação</p>
+            <p class="vuln-text justify">[[${vuln.remediation}]]</p>
+
+            <p class="vuln-classification">Referências</p>
+            <p class="vuln-text justify">[[${vuln.affectedItem}]]</p>
+        </div>
+
+    </body>
+</html>

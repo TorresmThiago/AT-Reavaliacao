@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+h2 {
+    color: #333;
+    margin-top: 0;
+    text-align: center;
+}
+
+.assessment-details, .vuln-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.assessment-details li, .vuln-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.assessment-details li strong {
+    color: #333;
+    margin-right: 10px;
+}
+
+.vuln-list li a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.vuln-list li a:hover {
+    text-decoration: underline;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.button.blue {
+    background-color: #007BFF;
+}
+
+.button.danger {
+    background-color: #FF6347;
+}
+
+.button.danger:hover {
+    background-color: #e5533d;
+}
+

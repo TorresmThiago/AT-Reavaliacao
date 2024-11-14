@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Página Inicial</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
+</head>
+<body>
+<div class="container">
+    <header style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px;">
+        <h2>Bem-vindo, <span th:text="${username}">Usuário</span></h2>
+        <a href="/assessment/create" class="new-assessment-btn">Criar Novo Assessment</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </header>
+    <table class="assessments-table">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cliente</th>
+            <th>Criado em</th>
+            <th>Prazo</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="assessment : ${assessments}">
+            <td th:text="${assessment.name}">Nome do Assessment</td>
+            <td th:text="${assessment.client}">Nome do Cliente</td>
+            <td th:text="${#temporals.format(assessment.startDate, 'dd/MM/yyyy')}">Data</td>
+            <td th:text="${#temporals.format(assessment.endDate, 'dd/MM/yyyy')}">Data</td>
+            <td>
+                <a th:href="@{'/assessment/' + ${assessment.id}}" class="details-link">Ver detalhes</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
